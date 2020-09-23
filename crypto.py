@@ -61,10 +61,26 @@ def decrypt_help(numValue, offset):
 def encrypt_vigenere(plaintext, keyword):
     pass
 
+
+
+
 # Arguments: string, string
 # Returns: string
 def decrypt_vigenere(ciphertext, keyword):
     pass
+
+def vigenere_key(plaintext, keyword):
+    keylist = list(keyword)
+    if len(plaintext) == len(keylist):
+        return keyword
+    if len(plaintext) < len(keyword):
+        keylist = keyword[0:len(keyword)-(len(keyword)-len(plaintext))]
+        return ("".join(keylist))
+    else:
+        for character in range(len(plaintext)-len(keylist)):
+            keylist.append(keylist[character%len(keylist)])
+    newKeyWord = "".join(keylist)
+    return newKeyWord
 
 # Merkle-Hellman Knapsack Cryptosystem
 # Arguments: integer
@@ -89,10 +105,11 @@ def decrypt_mhkc(ciphertext, private_key):
 
 def main():
     # Testing code here
-    string1 = encrypt_caesar("ABCD", 1)
-    print("Encryption: " + string1)
-    string2 = decrypt_caesar(string1, 1)
-    print("Decryption: " + string2)
+    string1 = encrypt_caesar("X", 5)
+    print("Caesar Encryption: " + string1)
+    string2 = decrypt_caesar(string1, 5)
+    print("Caesar Decryption: " + string2)
+    print(vigenere_key("ATTACKATDAWN", "LEMON"))
 
 if __name__ == '__main__':
     main()
