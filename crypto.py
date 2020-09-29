@@ -21,6 +21,8 @@ def encrypt_caesar(plaintext, offset):
             encryptedString = "No message received"
     return encryptedString
 
+#Arguments: integer, integer
+#Returns: string
 def encrypt_help(numValue, offset):
     eString = ""
     numInAlpha = 26
@@ -48,6 +50,8 @@ def decrypt_caesar(ciphertext, offset):
             decryptedString = "No message received"
     return decryptedString
 
+#Arguments: integer, integer
+#Returns: string
 def decrypt_help(numValue, offset):
     dString = ""
     numInAlpha = 26
@@ -84,6 +88,8 @@ def decrypt_vigenere(ciphertext, keyword):
     decryptedWord = "".join(decryptList)
     return decryptedWord
 
+#Arguments: string, string
+#Returns: string
 def vigenere_key(plaintext, keyword):
     keylist = list(keyword)
     if len(plaintext) == len(keylist):
@@ -140,6 +146,8 @@ def encrypt_mhkc(plaintext, public_key):
         encrypted.append(C)
     return encrypted
 
+#Arguments: integer
+#Returns: List of integers(1s and 0s)
 def byte_to_bit(byte):
     bits = []
     binary = bin(byte)[2:]
@@ -171,14 +179,16 @@ def decrypt_mhkc(ciphertext, private_key):
         Decrypted.append(chr(bits_to_byte(reversed(bitString))))
     return "".join(Decrypted)
 
-
+#Arguments: integer, integer
+#Returns: integer
 def findS(R, Q):
     for S in range(2,Q):
         if (R * S % Q == 1):
             return S
     return 0
 
-
+#Arguments: List of integers(1s and 0s)
+#Returns: integer
 def bits_to_byte(bits):
     bitsAsStrings = []
     for element in bits:
@@ -187,39 +197,43 @@ def bits_to_byte(bits):
     decimal = int(bitString, 2)
     return decimal
 
-    
+   
 def main():
     # Testing code here
     caesar()
     vigenere()
-
-    p = generate_private_key()
-    b = (create_public_key(p))
-    print(b)
-    print(p)
-    x = (encrypt_mhkc("HELLO",b))
-    print(x)
-    print(decrypt_mhkc(x, p))
-
-
+    MHKC()
     
 
-def caesar():
-    encryptCaesar = encrypt_caesar("", 5)
-    print("Caesar Encryption: " + encryptCaesar)
 
+#Does Caesar Cipher 
+def caesar():
+    encryptCaesar = encrypt_caesar("ABCDE", 5)
+    print("Caesar Encryption: " + encryptCaesar)
+   
     decryptCaesar = decrypt_caesar(encryptCaesar, 5)
     print("Caesar Decryption: " + decryptCaesar)
 
+#Does Vigenere Cipher
 def vigenere():
     plaintext = "ATTACKATDAWN"
     keyword = "LEMON"
-
+    
     encryptVigenere = encrypt_vigenere(plaintext, keyword)
     print("Vigenere Encryption: " + encryptVigenere)
+    
     decryptVigenere = decrypt_vigenere(encryptVigenere, keyword)
     print("Vigenere Decryption: " + decryptVigenere)
 
+#Does MHKC Cipher
+def MHKC():
+    privateKey = generate_private_key()
+    publicKey = (create_public_key(privateKey))
+    
+    encryptedMHKC = (encrypt_mhkc("ATTACKATDAWN", publicKey))
+    print(encryptedMHKC)
+    
+    print("Decrypted MHKC: " + decrypt_mhkc(encryptedMHKC, privateKey))
 
 if __name__ == '__main__':
     main()
