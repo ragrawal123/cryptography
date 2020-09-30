@@ -1,5 +1,6 @@
 import math
 import random
+
 # Caesar Cipher
 # Arguments: string, integer
 # Returns: string
@@ -9,7 +10,6 @@ def encrypt_caesar(plaintext, offset):
     begNum = 65
     endNum = 90
     numInAlpha = 26
-    
     for character in plaintext:
         if character in alpha:
             numValue = ord(character) - begNum
@@ -30,7 +30,6 @@ def encrypt_help(numValue, offset):
     numValue = (numValue + offset)%numInAlpha
     eString = chr(numValue + begNum)
     return eString
-
 
 # Arguments: string, integer
 # Returns: string
@@ -59,7 +58,6 @@ def decrypt_help(numValue, offset):
     numValue = (numValue - offset)% numInAlpha
     eString = chr(numValue + begNum)
     return eString
-
 
 # Vigenere Cipher
 # Arguments: string, string
@@ -119,8 +117,6 @@ def generate_private_key(n=8):
         R = random.randint(2, Q-1)
     return (tuple(W), Q, R)
     
-
-
 # Arguments: tuple (W, Q, R) - W a length-n tuple of integers, Q and R both integers
 # Returns: B - a length-n tuple of integers
 def create_public_key(private_key):
@@ -130,7 +126,6 @@ def create_public_key(private_key):
         B.append((R * element) % Q)
     return tuple(B)
 
- 
 # Arguments: string, tuple B
 # Returns: list of integers
 def encrypt_mhkc(plaintext, public_key):
@@ -197,15 +192,12 @@ def bits_to_byte(bits):
     decimal = int(bitString, 2)
     return decimal
 
-   
 def main():
     # Testing code here
     caesar()
     vigenere()
     MHKC()
     
-
-
 #Does Caesar Cipher 
 def caesar():
     encryptCaesar = encrypt_caesar("ABCDE", 5)
